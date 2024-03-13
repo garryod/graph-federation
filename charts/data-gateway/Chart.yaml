@@ -1,0 +1,7 @@
+apiVersion: v2
+name: data-gateway
+description: A GraphQL router deployment forming the Diamond Data Gateway
+type: application
+
+version: 0.1.0
+
