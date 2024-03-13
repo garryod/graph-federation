@@ -1,0 +1,16 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 100
+    groups:
+      github-artifacts:
+        patterns:
+          - actions/*-artifacts
+      minor:
+        update-types:
+          - minor
+          - patch
+
