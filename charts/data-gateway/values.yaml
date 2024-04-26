@@ -256,6 +256,8 @@ router:
     supergraph:
       introspection: true
       listen: 0.0.0.0:4000
+      query_planning:
+        experimental_parallelism: auto
     include_subgraph_errors:
       all: true
     headers:
