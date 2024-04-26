@@ -290,11 +290,11 @@ router:
             trace_context: true
   resources:
     requests:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 1
+      memory: 1Gi
     limits:
       cpu: 1
-      memory: 128Mi
+      memory: 1Gi
 
 oauth2-proxy:
   enabled: true
