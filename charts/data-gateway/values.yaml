@@ -298,6 +298,9 @@ oauth2-proxy:
       email_domains = [
         "diamond.ac.uk"
       ]
+      skip_auth_routes = [
+        "POST=^/$"
+      ]
   alphaConfig:
     enabled: true
     configFile: |
