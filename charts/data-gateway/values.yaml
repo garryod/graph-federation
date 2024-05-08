@@ -251,6 +251,10 @@ router:
         request:
           - propagate:
               matching: authorization
+    cors:
+      match_origins:
+        - ^https:\/\/(\w+\.)*diamond\.ac\.uk$
+        - ^https?:\/\/localhost(:\d+)?$
     health_check:
       listen: 0.0.0.0:8088
     telemetry:
@@ -299,7 +303,8 @@ oauth2-proxy:
         "diamond.ac.uk"
       ]
       skip_auth_routes = [
-        "POST=^/$"
+        "POST=^/$",
+        "OPTIONS=^/$"
       ]
   alphaConfig:
     enabled: true
