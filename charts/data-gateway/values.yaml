@@ -319,6 +319,7 @@ oauth2-proxy:
           values:
             - claim: access_token
               prefix: "Bearer "
+          preserveRequestValue: true
       injectResponseHeaders:
         - name: Identity
           values:
