@@ -100,7 +100,7 @@ struct Person {
     id: u32, 
     first_name: String, 
     last_name: String, 
-    preferred_name: Optional<String>,
+    preferred_name: Option<String>,
 }
 ```
 We can write a resolver for the `Person`. A resolver function resolvers the values for all the fields a GraphQL object.
