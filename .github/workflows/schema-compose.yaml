@@ -50,7 +50,7 @@ jobs:
       - name: Download Schema Artifact
         uses: actions/download-artifact@v4.1.8
         with:
-          name: supergraph.graphql     
+          name: supergraph.graphql
           path: charts/supergraph
 
       - name: Package Chart
