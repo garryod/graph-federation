@@ -43,6 +43,8 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4.2.0
+        with:
+          fetch-depth: 0
 
       - name: Setup Helm
         uses: azure/setup-helm@v4.2.0
@@ -54,7 +56,9 @@ jobs:
           path: charts/supergraph
 
       - name: Package Chart
-        run: helm package charts/supergraph --version ${{ github.ref_name }}
+        run: |
+          LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+          helm package charts/supergraph --version $LATEST_TAG
 
       - name: Generate Image Name
         run: echo IMAGE_REPOSITORY=oci://ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]' | tr '[_]' '[\-]') >> $GITHUB_ENV
