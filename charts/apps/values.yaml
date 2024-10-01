@@ -12,7 +12,7 @@ graph:
   path: charts/graph
 
 schema:
-  repoURL: ghcr.io/diamondlightsource/graph-federation-supergraph
+  repoURL: ghcr.io/diamondlightsource/graph-federation
   nightlyRevision: "*"
   stableRevision: 1.0.0
   chart: supergraph
