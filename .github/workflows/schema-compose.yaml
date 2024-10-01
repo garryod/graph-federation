@@ -57,7 +57,7 @@ jobs:
         run: helm package charts/supergraph
 
       - name: Generate Image Name
-        run: echo IMAGE_REPOSITORY=oci://ghcr.io/$(echo "${{ github.repository }}-supergraph" | tr '[:upper:]' '[:lower:]' | tr '[_]' '[\-]') >> $GITHUB_ENV
+        run: echo IMAGE_REPOSITORY=oci://ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]' | tr '[_]' '[\-]') >> $GITHUB_ENV
 
       - name: Log in to GitHub Docker Registry
         if: github.event_name != 'pull_request'
