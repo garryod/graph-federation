@@ -1,17 +1,23 @@
 name: Release Please
 
 on:
-  push:
-    branches:
-      - main
-
-permissions:
-  contents: write
-  pull-requests: write
+  workflow_call:
+    outputs:
+      apps-chart-released:
+        value: ${{ jobs.release_please.apps-chart-released }}
+      graph-chart-released:
+        value: ${{ jobs.release_please.graph-chart-released }}
+      monitoring-chart-released:
+        value: ${{ jobs.release_please.monitoring-chart-released }}
+      supergraph-chart-released:
+        value: ${{ jobs.release_please.supergraph-chart-released }}
 
 jobs:
-  release-please:
+  release_please:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     outputs:
       apps-chart-released: ${{ contains(steps.release.outputs.paths_released, 'charts/apps') }}
       graph-chart-released: ${{ contains(steps.release.outputs.paths_released, 'charts/graph') }}
