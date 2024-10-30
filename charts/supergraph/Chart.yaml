@@ -1,3 +1,4 @@
 apiVersion: v2
 name: supergraph
+description: The Supergraph Schema
 version: 1.0.0

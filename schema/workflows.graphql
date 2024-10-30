@@ -15,7 +15,7 @@ A scalar that can represent any JSON value.
 scalar JSON
 
 """
-The root mutation of the service
+The root mutation of the service.
 """
 type Mutation {
 	submitWorkflowTemplate(name: String!, visit: VisitInput!, parameters: JSON!): Workflow!
