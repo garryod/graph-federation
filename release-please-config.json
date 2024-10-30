@@ -22,6 +22,12 @@
         "supergraph-config.yaml",
         "schema/"
       ]
+    },
+    "workflows/compose": {
+      "release-type": "go"
+    },
+    "workflows/update": {
+      "release-type": "go"
     }
   }
 }
