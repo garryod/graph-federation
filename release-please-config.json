@@ -18,6 +18,14 @@
     },
     "charts/supergraph": {
       "release-type": "helm"
+    },
+    "workflows/compose": {
+      "package-name": "compose",
+      "release-type": "go"
+    },
+    "workflows/update": {
+      "package-name": "update",
+      "release-type": "go"
     }
   }
 }
