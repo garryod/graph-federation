@@ -2,11 +2,6 @@ name: Publish Supergraph Schema
 
 on:
   workflow_call:
-    inputs:
-      publish:
-        type: boolean
-        required: true
-        default: false
 
 jobs:
   publish:
@@ -29,13 +24,23 @@ jobs:
           name: supergraph.graphql
           path: charts/supergraph
 
-      - name: Package Chart
+      - name: Generate Chart Version
+        id: version
         run: |
-          LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-          helm package charts/supergraph --version $LATEST_TAG
+          LATEST_TAG=$(git describe --tags --match="supergraph*" --abbrev=0 --always)
+          COMMITS_SINCE=$(git rev-list $LATEST_TAG..HEAD --count)
+          VERSION=$([ "$COMMITS_SINCE" == 0 ] && echo "$LATEST_TAG" || echo "$LATEST_TAG+$COMMITS_SINCE" )
+          echo "Using Version: $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Package Chart
+        run: helm package charts/supergraph --version "${{ steps.version.outsputs.VERSION }}"
 
       - name: Generate Image Name
-        run: echo IMAGE_REPOSITORY=oci://ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]' | tr '[_]' '[\-]') >> $GITHUB_ENV
+        run: |
+          IMAGE_REPOSITORY="oci://ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]' | tr '[_]' '[\-]')"
+          echo "Using Image Name: $IMAGE_REPOSITORY"
+          echo "IMAGE_REPOSITORY=$IMAGE_REPOSITORY" >> $GITHUB_ENV
 
       - name: Log in to GitHub Docker Registry
         if: github.event_name != 'pull_request'
@@ -46,5 +51,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Chart
-        if: ${{ inputs.publish }}
         run: helm push $(ls supergraph-*.tgz) ${{ env.IMAGE_REPOSITORY }}
