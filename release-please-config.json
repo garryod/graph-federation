@@ -22,6 +22,19 @@
     },
     "charts/supergraph": {
       "release-type": "helm",
+      "component": "supergraph",
+      "release-as": "1.0.0"
+    },
+    "schema": {
+      "package-name": "supergraph-schema",
+      "release-type": "simple",
+      "component": "supergraph-schema",
+      "release-as": "1.0.0"
+    },
+    "supergraph-config.yaml": {
+      "package-name": "supergraph-config",
+      "release-type": "simple",
+      "component": "supergraph-config",
       "release-as": "1.0.0"
     },
     "workflows/compose": {
@@ -34,5 +47,16 @@
       "release-type": "simple",
       "release-as": "0.1.0"
     }
-  }
+  },
+  "plugins": [
+    {
+      "type": "linked-versions",
+      "groupName": "supergraph",
+      "components": [
+        "supergraph",
+        "supergraph-schema",
+        "supergraph-config"
+      ]
+    }
+  ]
 }
