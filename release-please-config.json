@@ -17,7 +17,17 @@
       "release-type": "helm"
     },
     "charts/supergraph": {
-      "release-type": "helm"
+      "release-type": "helm",
+      "component": "supergraph",
+      "versioning": "prerelease",
+      "prerelease-type": "beta"
+    },
+    "schema": {
+      "package-name": "supergraph-schema",
+      "release-type": "simple",
+      "component": "supergraph-schema",
+      "versioning": "prerelease",
+      "prerelease-type": "beta"
     },
     "workflows/compose": {
       "package-name": "compose",
