@@ -3,6 +3,8 @@
   "charts/graph": "0.11.1",
   "charts/monitoring": "0.2.0",
   "charts/supergraph": "1.0.0",
+  "schema/": "1.0.0",
+  "supergraph-config.yaml": "1.0.0",
   "workflows/compose": "0.1.0",
   "workflows/update": "0.1.0"
 }
