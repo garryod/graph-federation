@@ -4,5 +4,5 @@
   "charts/monitoring": "0.2.0",
   "charts/supergraph": "1.0.0",
   "workflows/compose": "0.1.0",
-  "workflows/update": "0.1.0"
+  "workflows/update": "0.1.1"
 }
