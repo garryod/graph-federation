@@ -27,7 +27,7 @@ jobs:
       - name: Generate Chart Version
         id: version
         run: |
-          if LATEST_TAG=$(git describe --tags --abbrev=0); then
+          if LATEST_TAG=$(git describe --tags --abbrev=0 --match supergraph@*); then
             COMMITS_SINCE=$(git rev-list $LATEST_TAG..HEAD --count)
           else
             LATEST_TAG="0.0.0"
