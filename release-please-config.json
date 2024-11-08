@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "$schema": "https://raw.githubusebetaontent.com/googleapis/release-please/main/schemas/config.json",
   "include-component-in-tag": true,
   "include-v-in-tag": true,
   "tag-separator": "@",
@@ -8,35 +8,51 @@
   "bump-patch-for-minor-pre-major": true,
   "packages": {
     "charts/apps": {
-      "release-type": "helm"
+      "release-type": "helm",
+      "versioning": "prerelease",
+      "prerelease-type": "beta"
     },
     "charts/graph": {
-      "release-type": "helm"
+      "release-type": "helm",
+      "versioning": "prerelease",
+      "prerelease-type": "beta"
     },
     "charts/monitoring": {
-      "release-type": "helm"
+      "release-type": "helm",
+      "versioning": "prerelease",
+      "prerelease-type": "beta"
     },
     "charts/supergraph": {
       "release-type": "helm",
-      "component": "supergraph"
+      "component": "supergraph",
+      "versioning": "prerelease",
+      "prerelease-type": "beta"
     },
     "schema": {
       "package-name": "supergraph-schema",
       "release-type": "simple",
-      "component": "supergraph-schema"
+      "component": "supergraph-schema",
+      "versioning": "prerelease",
+      "prerelease-type": "beta"
     },
     "supergraph-config.yaml": {
       "package-name": "supergraph-config",
       "release-type": "simple",
-      "component": "supergraph-config"
+      "component": "supergraph-config",
+      "versioning": "prerelease",
+      "prerelease-type": "beta"
     },
     "workflows/compose": {
       "package-name": "compose",
-      "release-type": "simple"
+      "release-type": "simple",
+      "versioning": "prerelease",
+      "prerelease-type": "beta"
     },
     "workflows/update": {
       "package-name": "update",
-      "release-type": "simple"
+      "release-type": "simple",
+      "versioning": "prerelease",
+      "prerelease-type": "beta"
     }
   },
   "plugins": [
