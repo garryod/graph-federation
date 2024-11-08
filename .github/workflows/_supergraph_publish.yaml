@@ -33,7 +33,7 @@ jobs:
             LATEST_TAG="0.0.0"
             COMMITS_SINCE=$(git rev-list HEAD --count)
           fi
-          VERSION=$([ "$COMMITS_SINCE" == 0 ] && echo "$LATEST_TAG" || echo "$LATEST_TAG+$COMMITS_SINCE" )
+          VERSION=$([ "$COMMITS_SINCE" == 0 ] && echo "$LATEST_TAG" || echo "$LATEST_TAG-pre.$COMMITS_SINCE" )
           echo "Using Version: $VERSION"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
