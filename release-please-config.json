@@ -8,35 +8,51 @@
   "bump-patch-for-minor-pre-major": true,
   "packages": {
     "charts/apps": {
-      "release-type": "helm"
+      "release-type": "helm",
+      "prerelease": true,
+      "prerelease-type": "rc"
     },
     "charts/graph": {
-      "release-type": "helm"
+      "release-type": "helm",
+      "prerelease": true,
+      "prerelease-type": "rc"
     },
     "charts/monitoring": {
-      "release-type": "helm"
+      "release-type": "helm",
+      "prerelease": true,
+      "prerelease-type": "rc"
     },
     "charts/supergraph": {
       "release-type": "helm",
-      "component": "supergraph"
+      "component": "supergraph",
+      "prerelease": true,
+      "prerelease-type": "rc"
     },
     "schema": {
       "package-name": "supergraph-schema",
       "release-type": "simple",
-      "component": "supergraph-schema"
+      "component": "supergraph-schema",
+      "prerelease": true,
+      "prerelease-type": "rc"
     },
     "supergraph-config.yaml": {
       "package-name": "supergraph-config",
       "release-type": "simple",
-      "component": "supergraph-config"
+      "component": "supergraph-config",
+      "prerelease": true,
+      "prerelease-type": "rc"
     },
     "workflows/compose": {
       "package-name": "compose",
-      "release-type": "simple"
+      "release-type": "simple",
+      "prerelease": true,
+      "prerelease-type": "rc"
     },
     "workflows/update": {
       "package-name": "update",
-      "release-type": "simple"
+      "release-type": "simple",
+      "prerelease": true,
+      "prerelease-type": "rc"
     }
   },
   "plugins": [
