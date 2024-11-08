@@ -1,6 +1,6 @@
 {
   "charts/graph": "0.12.0",
   "schema": "1.0.0",
-  "workflows/compose": "0.1.0",
+  "workflows/compose": "0.1.1",
   "workflows/update": "0.1.0"
 }
