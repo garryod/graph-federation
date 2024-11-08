@@ -1,0 +1,36 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "include-component-in-tag": true,
+  "include-v-in-tag": true,
+  "tag-separator": "@",
+  "separate-pull-requests": true,
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true,
+  "packages": {
+    "charts/supergraph": {
+      "release-type": "helm",
+      "component": "supergraph"
+    },
+    "schema": {
+      "package-name": "supergraph-schema",
+      "release-type": "simple",
+      "component": "supergraph-schema"
+    },
+    "supergraph-config.yaml": {
+      "package-name": "supergraph-config",
+      "release-type": "simple",
+      "component": "supergraph-config"
+    }
+  },
+  "plugins": [
+    {
+      "type": "linked-versions",
+      "groupName": "supergraph",
+      "components": [
+        "supergraph",
+        "supergraph-schema",
+        "supergraph-config"
+      ]
+    }
+  ]
+}
