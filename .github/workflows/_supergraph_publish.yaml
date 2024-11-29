@@ -15,39 +15,74 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Node
+        uses: actions/setup-node@v4.1.0
+
+      - name: Install release-please
+        run: npm install release-please simple-git
+
+      - name: Generate Chart Version
+        id: version
+        uses: actions/github-script@v7.0.1
+        with:
+          result-encoding: string
+          script: |
+            const releasePlease = require('release-please');
+            const simpleGit = require('simple-git');
+
+            const ghRelease = await releasePlease.GitHub.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              token: '${{ github.token }}'
+            });
+
+            const manifest = await releasePlease.Manifest.fromManifest(
+              ghRelease,
+              ghRelease.repository.defaultBranch,
+              'release-please-config.json',
+              '.release-please-manifest.json',
+              {}
+            );
+
+            const pullRequests = await manifest.buildPullRequests();
+            const pullRequest = pullRequests.find((pullRequest) => pullRequest.updates.some((update) => update.path === 'charts/supergraph/Chart.yaml'));
+            console.log(`Supergraph Pull Request: ${JSON.stringify(pullRequest)}`);
+
+            const git = simpleGit();
+            const lastTag = await git.raw('describe', '--tags', '--match', 'supergraph@v*', 'HEAD').catch((err) => undefined);
+            console.log(`Last Tag: ${JSON.stringify(lastTag)}`);
+            const commitsSince = lastTag ? await git.raw('rev-list', `${lastTag}..HEAD`, '--count') : await git.raw('rev-list', '--count', '--all');
+            console.log(`Commits Since: ${commitsSince}`);
+
+            const releaseData = pullRequest.body.releaseData.find((release) => release.component === 'supergraph-schema');
+            const rcVersion = pullRequest ? `${releaseData.version.major}.${releaseData.version.minor}.${releaseData.version.patch}-rc${commitsSince}` : '';
+            console.log(`Release Candidate Version: ${rcVersion}`);
+            return rcVersion
+
       - name: Setup Helm
+        if: steps.version.outputs.result != ''
         uses: azure/setup-helm@v4.2.0
 
       - name: Download Schema Artifact
+        if: steps.version.outputs.result != ''
         uses: actions/download-artifact@v4.1.8
         with:
           name: supergraph.graphql
           path: charts/supergraph
 
-      - name: Generate Chart Version
-        id: version
-        run: |
-          if LATEST_TAG=$(git describe --tags --abbrev=0); then
-            COMMITS_SINCE=$(git rev-list $LATEST_TAG..HEAD --count)
-          else
-            LATEST_TAG="0.0.0"
-            COMMITS_SINCE=$(git rev-list HEAD --count)
-          fi
-          VERSION=$([ "$COMMITS_SINCE" == 0 ] && echo "$LATEST_TAG" || echo "$LATEST_TAG+$COMMITS_SINCE" )
-          echo "Using Version: $VERSION"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-
       - name: Package Chart
-        run: helm package charts/supergraph --version "${{ steps.version.outputs.version }}"
+        if: steps.version.outputs.result != ''
+        run: helm package charts/supergraph --version ${{ steps.version.outputs.result }}
 
       - name: Generate Image Name
+        if: steps.version.outputs.result != ''
         run: |
           IMAGE_REPOSITORY="oci://ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]' | tr '[_]' '[\-]')"
           echo "Using Image Name: $IMAGE_REPOSITORY"
           echo "IMAGE_REPOSITORY=$IMAGE_REPOSITORY" >> $GITHUB_ENV
 
       - name: Log in to GitHub Docker Registry
-        if: github.event_name == 'push' && ( startsWith(github.ref, 'refs/tags') || startsWith(github.ref, 'refs/heads/main') )
+        if: steps.version.outputs.result != '' && github.event_name == 'push' && ( startsWith(github.ref, 'refs/tags') || startsWith(github.ref, 'refs/heads/main') )
         uses: docker/login-action@v3.3.0
         with:
           registry: ghcr.io
@@ -55,5 +90,5 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Chart
-        if: github.event_name == 'push' && ( startsWith(github.ref, 'refs/tags') || startsWith(github.ref, 'refs/heads/main') )
+        if: steps.version.outputs.result != '' && github.event_name == 'push' && ( startsWith(github.ref, 'refs/tags') || startsWith(github.ref, 'refs/heads/main') )
         run: helm push $(ls supergraph-*.tgz) ${{ env.IMAGE_REPOSITORY }}
