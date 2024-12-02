@@ -6,5 +6,5 @@
   "schema/": "1.0.0",
   "supergraph-config.yaml": "1.0.0",
   "workflows/compose": "0.1.0",
-  "workflows/update": "0.1.0"
+  "workflows/update": "1.2.0"
 }
