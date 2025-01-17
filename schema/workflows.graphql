@@ -2,7 +2,7 @@
 """
 Implement the DateTime<Utc> scalar
 
-The input/output is a string in RFC3339 format.
+The input/output is a string in RFC3339 format. Foo
 """
 scalar DateTime
 
