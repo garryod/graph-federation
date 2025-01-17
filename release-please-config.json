@@ -44,16 +44,5 @@
       "release-type": "simple",
       "release-as": "0.1.0"
     }
-  },
-  "plugins": [
-    {
-      "type": "linked-versions",
-      "groupName": "supergraph",
-      "components": [
-        "supergraph",
-        "supergraph-schema",
-        "supergraph-config"
-      ]
-    }
-  ]
+  }
 }
