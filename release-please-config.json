@@ -51,8 +51,7 @@
       "groupName": "supergraph",
       "components": [
         "supergraph",
-        "supergraph-schema",
-        "supergraph-config"
+        "supergraph-schema"
       ]
     }
   ]
