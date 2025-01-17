@@ -1,6 +1,6 @@
 # Compose Supergraph Schema
 
-This workflow may be used to test that a new or updated Subgraph Schema is composable with the federated Supergraph described in the `supergraph-config.yaml` of this repository.
+This workflow may be used to test that a new or updated Subgraph Schema is composable with the federated Supergraph described in the `supergraph-config.yaml` of this repository. Foo
 
 ## Usage
 
